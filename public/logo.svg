@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 160" fill="none">
+  <defs>
+    <!-- Simple shared gradient for reliability -->
+    <linearGradient id="neonAll" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" /> <!-- Indigo -->
+      <stop offset="50%" stop-color="#22d3ee" /> <!-- Cyan -->
+      <stop offset="100%" stop-color="#34d399" /> <!-- Emerald -->
+    </linearGradient>
+    
+    <filter id="glowSimple" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <g filter="url(#glowSimple)" stroke="url(#neonAll)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- T Shape -->
+    <line x1="30" y1="40" x2="90" y2="40" />
+    <line x1="60" y1="40" x2="60" y2="140" />
+    
+    <!-- A Shape -->
+    <line x1="110" y1="140" x2="140" y2="40" />
+    <line x1="140" y1="40" x2="170" y2="140" />
+    <line x1="125" y1="100" x2="155" y2="100" />
+  </g>
+</svg>

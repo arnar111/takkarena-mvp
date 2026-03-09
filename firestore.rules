@@ -1,0 +1,67 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Simplified manager check: Look for a user document that matches current UID and has manager role
+    function isManager() {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'manager';
+    }
+
+    // Collection Rules
+    match /users/{userId} {
+      // Allow initial lookup by staffId during login if authenticated anonymously
+      // and allow full read for managers or owner
+      allow read: if isAuthenticated(); 
+      allow write: if isAuthenticated() && (request.auth.uid == userId || isManager());
+    }
+
+    match /shifts/{shiftId} {
+      allow create: if isAuthenticated();
+      allow read, update, delete: if isAuthenticated() && (resource.data.userId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.staffId || isManager());
+    }
+
+    match /sales/{saleId} {
+      allow create: if isAuthenticated();
+      allow read, update, delete: if isAuthenticated() && (resource.data.userId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.staffId || isManager());
+    }
+
+    match /user_configs/{staffId} {
+      allow read, write: if isAuthenticated() && (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.staffId == staffId || isManager());
+    }
+
+    match /config/team_goals {
+      allow read: if isAuthenticated();
+      allow write: if isManager();
+    }
+
+    // Battles collection - participants can read, creators can update/delete
+    match /battles/{battleId} {
+      allow create: if isAuthenticated();
+      allow read: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && (
+        resource.data.createdBy == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.staffId ||
+        isManager()
+      );
+    }
+
+    // Messages collection - sender/receiver can read, sender can write
+    match /messages/{messageId} {
+      allow create: if isAuthenticated();
+      allow read: if isAuthenticated() && (
+        resource.data.fromUserId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.staffId ||
+        resource.data.toUserId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.staffId
+      );
+      allow update: if isAuthenticated() && (
+        resource.data.toUserId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.staffId
+      );
+      allow delete: if isManager();
+    }
+  }
+}

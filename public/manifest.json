@@ -1,0 +1,31 @@
+{
+    "name": "Takk Arena",
+    "short_name": "Takk Arena",
+    "version": "3.0.0",
+    "description": "Sales gamification and competition platform for sales teams - The Achievement Update",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#01040f",
+    "theme_color": "#4f46e5",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "business",
+        "productivity",
+        "games"
+    ],
+    "lang": "is"
+}
