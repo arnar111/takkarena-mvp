@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Plus, BarChart4, Menu, Trophy } from 'lucide-react';
+import { LayoutDashboard, BarChart4, Trophy, Sparkle, Menu } from 'lucide-react';
 
 interface MobileDockProps {
   activeTab: string;
@@ -9,44 +9,52 @@ interface MobileDockProps {
 
 const MobileDock: React.FC<MobileDockProps> = ({ activeTab, onTabChange, onMenuClick }) => {
   return (
-    <div className="md:hidden fixed bottom-6 left-4 right-4 z-[90] pointer-events-none">
-      <div className="glass bg-[#0f172a]/95 border border-white/10 rounded-[32px] p-2 shadow-2xl backdrop-blur-xl flex justify-between items-center px-6 pointer-events-auto h-20">
-        
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-[80]">
+      <div className="bg-[#0a0f1e]/98 border-t border-white/10 backdrop-blur-xl flex justify-around items-end px-2 pb-[env(safe-area-inset-bottom,8px)] pt-2">
+
         {/* Dashboard */}
         <button
           onClick={() => onTabChange('dashboard')}
-          className={`p-3 rounded-2xl transition-all ${activeTab === 'dashboard' ? 'text-white bg-white/10' : 'text-slate-500'}`}
+          className={`flex flex-col items-center gap-0.5 py-2 px-3 min-w-[56px] rounded-xl transition-all ${activeTab === 'dashboard' ? 'text-white' : 'text-slate-500'}`}
         >
-          <LayoutDashboard size={26} />
+          <LayoutDashboard size={22} />
+          <span className="text-[10px] font-bold tracking-wide">Heim</span>
+        </button>
+
+        {/* Skráning */}
+        <button
+          onClick={() => onTabChange('register')}
+          className={`flex flex-col items-center gap-0.5 py-2 px-3 min-w-[56px] rounded-xl transition-all ${activeTab === 'register' ? 'text-indigo-400' : 'text-slate-500'}`}
+        >
+          <Sparkle size={22} />
+          <span className="text-[10px] font-bold tracking-wide">Skráning</span>
         </button>
 
         {/* The Arena */}
         <button
           onClick={() => onTabChange('competitions')}
-          className={`p-3 rounded-2xl transition-all ${activeTab === 'competitions' ? 'text-amber-400 bg-amber-500/10' : 'text-slate-500'}`}
+          className={`flex flex-col items-center gap-0.5 py-2 px-3 min-w-[56px] rounded-xl transition-all ${activeTab === 'competitions' ? 'text-amber-400' : 'text-slate-500'}`}
         >
-          <Trophy size={26} />
-        </button>
-
-        {/* GIANT ADD BUTTON - Registration */}
-        <button
-          onClick={() => onTabChange('register')}
-          className="absolute left-1/2 -translate-x-1/2 -top-8 h-16 w-16 bg-indigo-500 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.6)] border-4 border-[#01040f] active:scale-95 transition-all"
-        >
-          <Plus size={32} className="text-white" />
+          <Trophy size={22} />
+          <span className="text-[10px] font-bold tracking-wide">Arena</span>
         </button>
 
         {/* Tölfræði */}
         <button
           onClick={() => onTabChange('stats')}
-          className={`p-3 rounded-2xl transition-all ${activeTab === 'stats' ? 'text-white bg-white/10' : 'text-slate-500'}`}
+          className={`flex flex-col items-center gap-0.5 py-2 px-3 min-w-[56px] rounded-xl transition-all ${activeTab === 'stats' ? 'text-white' : 'text-slate-500'}`}
         >
-          <BarChart4 size={26} />
+          <BarChart4 size={22} />
+          <span className="text-[10px] font-bold tracking-wide">Tölfræði</span>
         </button>
 
-        {/* Menu (opens sidebar for Admin etc) */}
-        <button onClick={onMenuClick} className="p-3 text-slate-500">
-          <Menu size={26} />
+        {/* Menu (sidebar) */}
+        <button
+          onClick={onMenuClick}
+          className="flex flex-col items-center gap-0.5 py-2 px-3 min-w-[56px] rounded-xl text-slate-500"
+        >
+          <Menu size={22} />
+          <span className="text-[10px] font-bold tracking-wide">Meira</span>
         </button>
 
       </div>

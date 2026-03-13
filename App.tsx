@@ -255,7 +255,7 @@ const App: React.FC = () => {
 
         {isSidebarOpen && <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] lg:hidden" onClick={() => setIsSidebarOpen(false)} />}
 
-        <aside className={`fixed inset-y-0 left-0 z-[50] glass border-r border-white/5 flex flex-col transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-64 lg:relative lg:translate-x-0`}>
+        <aside className={`fixed inset-y-0 left-0 z-[100] glass border-r border-white/5 flex flex-col transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-[75vw] max-w-64 lg:w-64 lg:relative lg:translate-x-0`}>
           <div className="p-8 flex flex-col items-center border-b border-white/5 bg-white/2 min-h-[160px] justify-center">
             <img src="/logo_final.svg" alt="TAKK" className="h-24 w-full mb-3" onError={() => setLogoError(true)} />
             <h1 className="text-[10px] font-black tracking-[0.3em] text-indigo-400 uppercase italic">Takk Arena</h1>
@@ -281,7 +281,7 @@ const App: React.FC = () => {
         </aside>
 
         <div className="flex-1 flex flex-col min-w-0 bg-[#01040f] relative overflow-hidden pt-16">
-          <main className="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-8">
+          <main className="flex-1 overflow-y-auto custom-scrollbar p-4 pb-24 md:p-8 md:pb-8">
             <div className="max-w-7xl mx-auto space-y-8">
               {activeTab === 'dashboard' && (
                 <Dashboard
